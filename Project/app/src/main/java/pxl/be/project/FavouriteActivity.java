@@ -18,7 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class FavoriteActivity extends Activity {
+public class FavouriteActivity extends Activity {
 
     private Book[] books;
     EditText inputSearch;
