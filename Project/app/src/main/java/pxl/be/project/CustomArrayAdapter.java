@@ -19,9 +19,9 @@ public class CustomArrayAdapter extends ArrayAdapter {
         bookList = list;
     }
 
-    @Override
-    public View getView(int position, View conevertView, ViewGroep parent)
-    {
-        ViewHolder
-    }
+    //@Override
+   // public View getView(int position, View conevertView, ViewGroep parent)
+    //{
+    //    ViewHolder
+    //}
 }

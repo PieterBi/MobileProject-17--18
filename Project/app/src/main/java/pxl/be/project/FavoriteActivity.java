@@ -17,7 +17,7 @@ public class FavoriteActivity extends ListActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.rowlayout);
+//        setContentView(R.layout.rowlayout);
         List<Book> list = new ArrayList<Book>();
         /*The list should later on be populated with data from the api/favorite database
             But for now standard books are enough
@@ -31,9 +31,10 @@ public class FavoriteActivity extends ListActivity {
         list.toArray(books);
 
 
-        ArrayAdapter<Book> adapter = new ArrayAdapter<Book>(this, R.layout.rowlayout, books);
-        ListView lv = (ListView) findViewById(R.id.label);
-        lv.setAdapter(adapter);
+        ArrayAdapter<Book> adapter = new ArrayAdapter<Book>(this, R.layout.rowlayout, R.id.label, books);
+//        ListView lv = (ListView) findViewById(R.id.label);
+//        lv.setAdapter(adapter);
+        setListAdapter(adapter);
     }
 
     @Override
