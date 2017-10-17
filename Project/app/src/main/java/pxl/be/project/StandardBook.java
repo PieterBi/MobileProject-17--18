@@ -9,7 +9,7 @@ public class StandardBook {
 
     public static Book getStandardBook()
     {
-        return new Book("title","Author","Description","ReleaseDate","Publisher");
+        return new Book("title","Author","Description","ReleaseDate","Publisher","ISBN10","ISBN13");
     }
 
 }
