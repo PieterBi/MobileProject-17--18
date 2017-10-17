@@ -30,17 +30,19 @@ public class FavoriteActivity extends ListActivity {
         Book[] books = new Book[list.size()];
         list.toArray(books);
 
+        Integer[] imgId=null;
 
-        ArrayAdapter<Book> adapter = new ArrayAdapter<Book>(this, R.layout.rowlayout, R.id.label, books);
-//        ListView lv = (ListView) findViewById(R.id.label);
-//        lv.setAdapter(adapter);
+        CustomListAdapter adapter = new CustomListAdapter(this, books, imgId);
         setListAdapter(adapter);
+
+//        ArrayAdapter<Book> adapter = new ArrayAdapter<Book>(this, R.layout.rowlayout, R.id.label, books);
+//        setListAdapter(adapter);
     }
 
     @Override
     protected void onListItemClick(ListView l, View v, int position, long id)
     {
-        String item = (String) getListAdapter().getItem(position);
+        String item = (String) getListAdapter().getItem(position).toString();
         Toast.makeText(this, item + " selected", Toast.LENGTH_LONG).show();
     }
 }
