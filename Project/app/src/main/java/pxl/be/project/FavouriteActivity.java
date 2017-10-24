@@ -1,6 +1,7 @@
 package pxl.be.project;
 
 import android.app.Activity;
+import android.app.FragmentManager;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -14,12 +15,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class FavouriteActivity extends AppCompatActivity {
+public class FavouriteActivity extends AppCompatActivity implements MyListener{
 
-    private Book[] books;
+    FragmentManager manager = getFragmentManager();
     private Book book;
-    EditText inputSearch;
-    ListView listView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,7 +28,18 @@ public class FavouriteActivity extends AppCompatActivity {
     }
 
     @Override
-    public void sendBook()
+    public void sendBook(int position)
+    {
+        ListView listView = (ListView) findViewById(R.id.lv_listOfBooks);
+        book = (Book) listView.getItemAtPosition(position);
+        sendDataToFragmentFavourite();
+    }
+
+    private void sendDataToFragmentFavourite()
+    {
+        FragmentDetail fragmentDetail = (FragmentDetail) manager.findFragmentById(R.id.frag_detail);
+        fragmentDetail.setBookDetails(book);
+    }
 }
 //        super.onCreate(savedInstanceState);
 //        setContentView(R.layout.fragment_favourite);
