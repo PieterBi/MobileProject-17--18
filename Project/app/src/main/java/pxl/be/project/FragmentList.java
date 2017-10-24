@@ -52,12 +52,18 @@ public class FragmentList extends Fragment {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                String item = (String) listView.getAdapter().getItem(position).toString();
-                Toast.makeText(context, item + " selected", Toast.LENGTH_LONG).show();
+//                String item = (String) listView.getAdapter().getItem(position).toString();
+//                Toast.makeText(context, item + " selected", Toast.LENGTH_LONG).show();
+                sendPosition(position);
             }
         });
 
         return view;
+    }
+
+    private void sendPosition(int position) {
+        MyListener myListener = (MyListener) getActivity();
+        myListener.sendBook(position);
     }
 
 }
