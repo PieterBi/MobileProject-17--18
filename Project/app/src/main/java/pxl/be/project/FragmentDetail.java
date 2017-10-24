@@ -1,6 +1,7 @@
 package pxl.be.project;
 
 import android.app.Fragment;
+<<<<<<< HEAD
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -10,7 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 /**
- * Created by Pieter on 24/10/2017.
+ * Created by Pieter & 11305181 on 24/10/2017.
  */
 
 public class FragmentDetail extends Fragment {
@@ -26,4 +27,4 @@ public class FragmentDetail extends Fragment {
         View view = inflater.inflate(R.layout.fragment_detail, container, false);
 
     }
-}
+
