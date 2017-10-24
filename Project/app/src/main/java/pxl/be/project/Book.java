@@ -10,9 +10,18 @@ import android.os.Parcelable;
  */
 
 public class Book implements Parcelable{
-    private String title, author, description, releaseDate, publisher, ISBN10, ISBN13;
+    private String title;
+    private String author;
+    private String description;
+    private String releaseDate;
+    private String publisher;
+    private String ISBN10;
+    private String ISBN13;
+    private String summary;
 
-    public Book(String title, String author, String description, String releaseDate, String publisher, String ISBN10, String ISBN13)
+    //TODO add book cover
+
+    public Book(String title, String author, String description, String releaseDate, String publisher, String ISBN10, String ISBN13, String summary)
     {
         this.title = title;
         this.author = author;
@@ -21,6 +30,7 @@ public class Book implements Parcelable{
         this.publisher = publisher;
         this.ISBN10 = ISBN10;
         this.ISBN13 = ISBN13;
+        this.summary = summary;
     }
 
     public String getTitle() {
@@ -83,9 +93,17 @@ public class Book implements Parcelable{
         this.ISBN13 = ISBN13;
     }
 
+    public String getSummary() {
+        return summary;
+    }
+
+    public void setSummary(String summary) {
+        this.summary = summary;
+    }
+
     public Book(Parcel in)
     {
-        String[] data = new String[7];
+        String[] data = new String[8];
 
         in.readStringArray(data);
 
@@ -96,6 +114,7 @@ public class Book implements Parcelable{
         this.publisher = data[4];
         this.ISBN10 = data[5];
         this.ISBN13 = data[6];
+        this.summary = data[7];
     }
 
     @Override
@@ -118,7 +137,8 @@ public class Book implements Parcelable{
                 this.releaseDate,
                 this.publisher,
                 this.ISBN10,
-                this.ISBN13
+                this.ISBN13,
+                this.summary
         });
 
     }
