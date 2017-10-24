@@ -1,15 +1,10 @@
 package pxl.be.project;
 
 import android.app.Activity;
-import android.app.ListActivity;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -27,7 +22,7 @@ public class FavouriteActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_favorite);
+        setContentView(R.layout.fragment_favourite);
         List<Book> list = new ArrayList<Book>();
         /*The list should later on be populated with data from the api/favorite database
             But for now standard books are enough
