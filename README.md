@@ -16,3 +16,6 @@ Hiervoor moet de ISBN 13 gebruikt worden
 
 Voorbeeld:  
 https://openlibrary.org/api/books?bibkeys=ISBN:9780849303159&jscmd=data&format=json
+
+pxl.mobdev@gmail.com
+ww: unsecured
