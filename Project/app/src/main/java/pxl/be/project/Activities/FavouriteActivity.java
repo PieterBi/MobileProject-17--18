@@ -31,6 +31,8 @@ public class FavouriteActivity extends AppCompatActivity implements MyListener {
 
         //use this function to add a dummy entry in the local sqlite db
         //testSaveBook();
+
+        //testRemoveBook();
     }
 
     @Override
@@ -81,4 +83,13 @@ public class FavouriteActivity extends AppCompatActivity implements MyListener {
         dbHelper.insertBook(sqlBook);
 
     }
+
+    private void testRemoveBook()
+    {
+        ReadingBuddyDbHelper dbHelper = new ReadingBuddyDbHelper(getApplicationContext());
+
+        Book b = new Book(2, StandardBook.getStandardBook());
+        dbHelper.deleteBook(b);
+    }
+
 }

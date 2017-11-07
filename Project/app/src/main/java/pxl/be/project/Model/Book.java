@@ -35,15 +35,12 @@ public class Book implements Parcelable {
     }
 
     public Book(int id, String title, String author, String description, String releaseDate, String publisher, String ISBN10, String ISBN13, String summary) {
+        this(title, author, description, releaseDate, publisher, ISBN10, ISBN13, summary);
         this.id = id;
-        this.title = title;
-        this.author = author;
-        this.description = description;
-        this.releaseDate = releaseDate;
-        this.publisher = publisher;
-        this.ISBN10 = ISBN10;
-        this.ISBN13 = ISBN13;
-        this.summary = summary;
+    }
+
+    public Book(int id, Book b) {
+        this(id, b.getTitle(), b.getAuthor(), b.getDescription(), b.getReleaseDate(), b.getPublisher(), b.getISBN10(), b.getISBN13(), b.getSummary());
     }
 
     public int getId() {
@@ -161,4 +158,22 @@ public class Book implements Parcelable {
             return new Book[size];
         }
     };
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (!Book.class.isAssignableFrom(obj.getClass())) {
+            return false;
+        }
+
+        final Book other = (Book) obj;
+        if (this.getISBN10() == other.getISBN10() || this.getISBN13() == other.getISBN13()) {
+            return true;
+        }
+
+        return false;
+    }
+
 }

@@ -17,6 +17,7 @@ import static pxl.be.project.DAL.ReadingBuddyContract.*;
 public class ReadingBuddyDbHelper extends SQLiteOpenHelper {
     public static final int DATABASE_VERSION = 1;
     public static final String DATABASE_NAME = "ReadingBuddy.db";
+
     private static final String SQL_CREATE_ENTRIES =
             "CREATE TABLE " + ReadingBuddy.TABLE_NAME + " (" +
                     ReadingBuddy._ID + " INTEGER PRIMARY KEY," +
@@ -52,7 +53,9 @@ public class ReadingBuddyDbHelper extends SQLiteOpenHelper {
         Log.d("SQL", "starting task");
     }
 
-    public void deleteBook(Book b) {
+    public void deleteBook(Book b)
+    {
+        Log.d("SQL", "Executing remove task");
         new RemoveTask().execute(b);
     }
 
@@ -128,9 +131,10 @@ public class ReadingBuddyDbHelper extends SQLiteOpenHelper {
             // Define 'where' part of query.
             String selection = ReadingBuddy._ID + " LIKE ?";
             // Specify arguments in placeholder order.
-            String[] selectionArgs = { books[0].toString() };
+            String[] selectionArgs = { Integer.toString(books[0].getId()) };
             // Issue SQL statement.
             db.delete(ReadingBuddy.TABLE_NAME, selection, selectionArgs);
+            Log.d("SQL", "deleting ... ");
 
             return null;
         }
