@@ -9,7 +9,9 @@ import android.os.Parcelable;
  * And to easily pass the object between the listView and detailView
  */
 
-public class Book implements Parcelable{
+public class Book implements Parcelable {
+    //id is used to reference book objects from sqlite
+    private int id;
     private String title;
     private String author;
     private String description;
@@ -21,8 +23,7 @@ public class Book implements Parcelable{
 
     //TODO add book cover
 
-    public Book(String title, String author, String description, String releaseDate, String publisher, String ISBN10, String ISBN13, String summary)
-    {
+    public Book(String title, String author, String description, String releaseDate, String publisher, String ISBN10, String ISBN13, String summary) {
         this.title = title;
         this.author = author;
         this.description = description;
@@ -31,6 +32,22 @@ public class Book implements Parcelable{
         this.ISBN10 = ISBN10;
         this.ISBN13 = ISBN13;
         this.summary = summary;
+    }
+
+    public Book(int id, String title, String author, String description, String releaseDate, String publisher, String ISBN10, String ISBN13, String summary) {
+        this.id = id;
+        this.title = title;
+        this.author = author;
+        this.description = description;
+        this.releaseDate = releaseDate;
+        this.publisher = publisher;
+        this.ISBN10 = ISBN10;
+        this.ISBN13 = ISBN13;
+        this.summary = summary;
+    }
+
+    public int getId() {
+        return id;
     }
 
     public String getTitle() {
@@ -73,23 +90,19 @@ public class Book implements Parcelable{
         this.publisher = publisher;
     }
 
-    public String getISBN10()
-    {
+    public String getISBN10() {
         return ISBN10;
     }
 
-    public void setISBN10(String ISBN10)
-    {
+    public void setISBN10(String ISBN10) {
         this.ISBN10 = ISBN10;
     }
 
-    public String getISBN13()
-    {
+    public String getISBN13() {
         return ISBN13;
     }
 
-    public void setISBN13(String ISBN13)
-    {
+    public void setISBN13(String ISBN13) {
         this.ISBN13 = ISBN13;
     }
 
@@ -101,25 +114,20 @@ public class Book implements Parcelable{
         this.summary = summary;
     }
 
-    public Book(Parcel in)
-    {
-        String[] data = new String[8];
-
-        in.readStringArray(data);
-
-        this.title = data[0];
-        this.author = data[1];
-        this.description = data[2];
-        this.releaseDate = data[3];
-        this.publisher = data[4];
-        this.ISBN10 = data[5];
-        this.ISBN13 = data[6];
-        this.summary = data[7];
+    protected Book(Parcel in) {
+        id = in.readInt();
+        title = in.readString();
+        author = in.readString();
+        description = in.readString();
+        releaseDate = in.readString();
+        publisher = in.readString();
+        ISBN10 = in.readString();
+        ISBN13 = in.readString();
+        summary = in.readString();
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return this.title.toString();
     }
 
@@ -130,29 +138,26 @@ public class Book implements Parcelable{
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeStringArray(new String[]{
-                this.title,
-                this.author,
-                this.description,
-                this.releaseDate,
-                this.publisher,
-                this.ISBN10,
-                this.ISBN13,
-                this.summary
-        });
-
+        dest.writeInt(id);
+        dest.writeString(title);
+        dest.writeString(author);
+        dest.writeString(description);
+        dest.writeString(releaseDate);
+        dest.writeString(publisher);
+        dest.writeString(ISBN10);
+        dest.writeString(ISBN13);
+        dest.writeString(summary);
     }
 
-    public static final Parcelable.Creator<Book> CREATOR
-            = new Parcelable.Creator<Book>()
-    {
-        public Book createFromParcel(Parcel in)
-        {
+
+    public static final Parcelable.Creator<Book> CREATOR = new Parcelable.Creator<Book>() {
+        @Override
+        public Book createFromParcel(Parcel in) {
             return new Book(in);
         }
 
-        public Book[] newArray(int size)
-        {
+        @Override
+        public Book[] newArray(int size) {
             return new Book[size];
         }
     };

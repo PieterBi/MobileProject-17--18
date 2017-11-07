@@ -1,147 +1,148 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:layout_marginStart="5dp">
+    android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/tv_bookTitle"
-        style="@style/BookTitleStyle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/book.detail.title" />
-
-    <GridLayout
-        android:id="@+id/gl_bookDetailsLayout"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:columnCount="2">
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_marginStart="5dp">
 
-        <ImageView
-            android:id="@+id/im_bookCover"
-            android:layout_width="0dp"
-            android:layout_height="250dp"
-            android:layout_columnWeight="0.8"
-            android:layout_marginEnd="10dp"
-            android:scaleType="fitStart"
-            app:srcCompat="@drawable/book1600" />
-
-        <RelativeLayout
-            android:layout_width="0dp"
+        <TextView
+            android:id="@+id/tv_bookTitle"
+            style="@style/BookTitleStyle"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_columnWeight="1">
+            android:text="@string/book.detail.title" />
 
-            <TextView
-                android:id="@+id/tv_bookAuthorsLabel"
-                android:layout_width="wrap_content"
+        <GridLayout
+            android:id="@+id/gl_bookDetailsLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:columnCount="2">
+
+            <ImageView
+                android:id="@+id/im_bookCover"
+                android:layout_width="0dp"
+                android:layout_height="250dp"
+                android:layout_columnWeight="0.8"
+                android:layout_marginEnd="10dp"
+                android:scaleType="fitStart"
+                app:srcCompat="@drawable/book1600" />
+
+            <RelativeLayout
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
-                android:text="@string/book.detail.authors"
-                android:textStyle="bold" />
+                android:layout_columnWeight="1">
 
-            <TextView
-                android:id="@+id/tv_bookAuthors"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/tv_bookAuthorsLabel"
-                android:layout_marginStart="5dp"
-                android:text="@string/book.detail.multiline" />
+                <TextView
+                    android:id="@+id/tv_bookAuthorsLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:text="@string/book.detail.authors"
+                    android:textStyle="bold" />
 
-            <TextView
-                android:id="@+id/tv_publisherLabel"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/tv_bookAuthors"
-                android:layout_marginTop="10dp"
-                android:text="@string/book.detail.publisher"
-                android:textStyle="bold" />
+                <TextView
+                    android:id="@+id/tv_bookAuthors"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/tv_bookAuthorsLabel"
+                    android:layout_marginStart="5dp"
+                    android:text="@string/book.detail.multiline" />
 
-            <TextView
-                android:id="@+id/tv_publisher"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/tv_publisherLabel"
-                android:layout_marginStart="5dp"
-                android:text="@string/book.detail.placeholder" />
+                <TextView
+                    android:id="@+id/tv_publisherLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/tv_bookAuthors"
+                    android:layout_marginTop="10dp"
+                    android:text="@string/book.detail.publisher"
+                    android:textStyle="bold" />
 
-            <TextView
-                android:id="@+id/tv_releaseLabel"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/tv_publisher"
-                android:layout_marginTop="10dp"
-                android:text="@string/book.detail.release"
-                android:textStyle="bold" />
+                <TextView
+                    android:id="@+id/tv_publisher"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/tv_publisherLabel"
+                    android:layout_marginStart="5dp"
+                    android:text="@string/book.detail.placeholder" />
 
-            <TextView
-                android:id="@+id/tv_release"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/tv_releaseLabel"
-                android:layout_marginStart="5dp"
-                android:text="@string/book.detail.placeholder" />
+                <TextView
+                    android:id="@+id/tv_releaseLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/tv_publisher"
+                    android:layout_marginTop="10dp"
+                    android:text="@string/book.detail.release"
+                    android:textStyle="bold" />
 
-            <TextView
-                android:id="@+id/tv_isbn10Label"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/tv_release"
-                android:layout_marginTop="10dp"
-                android:text="@string/book.detail.isbn10"
-                android:textStyle="bold" />
+                <TextView
+                    android:id="@+id/tv_release"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/tv_releaseLabel"
+                    android:layout_marginStart="5dp"
+                    android:text="@string/book.detail.placeholder" />
 
-            <TextView
-                android:id="@+id/tv_isbn10"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/tv_isbn10Label"
-                android:layout_marginStart="5dp"
-                android:text="@string/book.detail.placeholder" />
+                <TextView
+                    android:id="@+id/tv_isbn10Label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/tv_release"
+                    android:layout_marginTop="10dp"
+                    android:text="@string/book.detail.isbn10"
+                    android:textStyle="bold" />
 
-            <TextView
-                android:id="@+id/tv_isbn13Label"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/tv_isbn10"
-                android:layout_marginTop="10dp"
-                android:text="ISBN 13"
-                android:textStyle="bold" />
+                <TextView
+                    android:id="@+id/tv_isbn10"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/tv_isbn10Label"
+                    android:layout_marginStart="5dp"
+                    android:text="@string/book.detail.placeholder" />
 
-            <TextView
-                android:id="@+id/tv_isbn13"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/tv_isbn13Label"
-                android:layout_marginStart="5dp"
-                android:text="@string/book.detail.placeholder" />
-        </RelativeLayout>
+                <TextView
+                    android:id="@+id/tv_isbn13Label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/tv_isbn10"
+                    android:layout_marginTop="10dp"
+                    android:text="ISBN 13"
+                    android:textStyle="bold" />
 
-
-    </GridLayout>
-
-    <TextView
-        android:id="@+id/tv_bookSummaryLabel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="5dp"
-        android:text="@string/book.details.summary"
-        android:textStyle="bold" />
-    <TextView
-        android:id="@+id/tv_bookSummary"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/book.summary.lorem_ipsum"/>
-
-    <Button
-        android:id="@+id/btn_favouritesButton"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/book.details.favourites" />
+                <TextView
+                    android:id="@+id/tv_isbn13"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/tv_isbn13Label"
+                    android:layout_marginStart="5dp"
+                    android:text="@string/book.detail.placeholder" />
+            </RelativeLayout>
 
 
-</LinearLayout>
+        </GridLayout>
+
+        <TextView
+            android:id="@+id/tv_bookSummaryLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:text="@string/book.details.summary"
+            android:textStyle="bold" />
+        <TextView
+            android:id="@+id/tv_bookSummary"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/book.summary.lorem_ipsum"/>
+
+        <Button
+            android:id="@+id/btn_favouritesButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/book.details.favourites" />
+    </LinearLayout>
+</ScrollView>

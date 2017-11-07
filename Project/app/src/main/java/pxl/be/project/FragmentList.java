@@ -3,6 +3,9 @@ package pxl.be.project;
 import android.app.Fragment;
 import android.content.Context;
 import android.os.Bundle;
+import android.os.Handler;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,6 +27,9 @@ public class FragmentList extends Fragment {
     private Book[] books;
     private EditText inputSearch;
     private ListView listView;
+    private CustomListAdapter adapter;
+
+    private Handler searchHandler = new Handler();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -32,21 +38,24 @@ public class FragmentList extends Fragment {
         context = getActivity().getApplicationContext();
 
         inputSearch = view.findViewById(R.id.et_inputSearch);
+        inputSearch.addTextChangedListener(searchWatcher);
         listView = view.findViewById(R.id.lv_listOfBooks);
 
-        List<Book> list = new ArrayList<Book>();
+        List<Book> list = getFavouriteBooks();
         /*The list should later on be populated with data from the api/favorite database
             But for now standard books are enough
-         */
+        List<Book> list = new ArrayList<Book>();
         for (int i = 0; i < 5; i++) {
             list.add(StandardBook.getStandardBook());
+            list.get(i).setTitle(Integer.toString(i));
         }
+         */
 
         books = new Book[list.size()];
         list.toArray(books);
         Integer[] imgId = null;
 
-        CustomListAdapter adapter = new CustomListAdapter(getActivity(), books, imgId);
+        adapter = new CustomListAdapter(getActivity(), books, imgId);
         listView.setAdapter(adapter);
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -61,9 +70,37 @@ public class FragmentList extends Fragment {
         return view;
     }
 
+    private ArrayList<Book> getFavouriteBooks(){
+        ReadingBuddyDbHelper dbHelper = new ReadingBuddyDbHelper(getActivity().getApplicationContext());
+
+        return dbHelper.getAllBooks();
+    }
+
     private void sendPosition(int position) {
         MyListener myListener = (MyListener) getActivity();
         myListener.sendBook(position);
     }
 
+    private void searchFavouriteBooks(String s) {adapter.getFilter().filter(s);
+    }
+
+    TextWatcher searchWatcher = new TextWatcher() {
+
+        @Override
+        public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            searchHandler.postDelayed(new Runnable() {
+                public void run() {
+                    searchFavouriteBooks(inputSearch.getText().toString());
+                }
+            }, 1200);
+        }
+
+        @Override
+        public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+        }
+
+        @Override
+        public void afterTextChanged(Editable editable) {
+        }
+    };
 }
