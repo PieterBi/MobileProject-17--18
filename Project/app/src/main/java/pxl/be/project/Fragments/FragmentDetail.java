@@ -1,4 +1,4 @@
-package pxl.be.project;
+package pxl.be.project.Fragments;
 
 import android.app.Fragment;
 import android.os.Bundle;
@@ -8,7 +8,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
+
+import pxl.be.project.Model.Book;
+import pxl.be.project.R;
 
 /**
  * Created by Pieter & 11305181 on 24/10/2017.

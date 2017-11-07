@@ -1,4 +1,4 @@
-package pxl.be.project;
+package pxl.be.project.DAL;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -9,9 +9,10 @@ import android.os.AsyncTask;
 import android.util.Log;
 
 import java.util.ArrayList;
-import java.util.List;
 
-import static pxl.be.project.ReadingBuddyContract.*;
+import pxl.be.project.Model.Book;
+
+import static pxl.be.project.DAL.ReadingBuddyContract.*;
 
 public class ReadingBuddyDbHelper extends SQLiteOpenHelper {
     public static final int DATABASE_VERSION = 1;
@@ -49,6 +50,10 @@ public class ReadingBuddyDbHelper extends SQLiteOpenHelper {
     public void insertBook(Book b) {
         new InsertTask().execute(b);
         Log.d("SQL", "starting task");
+    }
+
+    public void deleteBook(Book b) {
+        new RemoveTask().execute(b);
     }
 
     public ArrayList<Book> getAllBooks() {
@@ -117,6 +122,15 @@ public class ReadingBuddyDbHelper extends SQLiteOpenHelper {
 
         @Override
         protected Void doInBackground(Book... books) {
+            // Gets the data repository in write mode
+            SQLiteDatabase db = getWritableDatabase();
+
+            // Define 'where' part of query.
+            String selection = ReadingBuddy._ID + " LIKE ?";
+            // Specify arguments in placeholder order.
+            String[] selectionArgs = { books[0].toString() };
+            // Issue SQL statement.
+            db.delete(ReadingBuddy.TABLE_NAME, selection, selectionArgs);
 
             return null;
         }

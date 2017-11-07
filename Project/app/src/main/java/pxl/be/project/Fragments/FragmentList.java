@@ -1,4 +1,4 @@
-package pxl.be.project;
+package pxl.be.project.Fragments;
 
 import android.app.Fragment;
 import android.content.Context;
@@ -12,10 +12,15 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import pxl.be.project.Model.Book;
+import pxl.be.project.CustomListAdapter;
+import pxl.be.project.MyListener;
+import pxl.be.project.R;
+import pxl.be.project.DAL.ReadingBuddyDbHelper;
 
 /**
  * Created by 11305181 on 24/10/2017.
@@ -42,14 +47,6 @@ public class FragmentList extends Fragment {
         listView = view.findViewById(R.id.lv_listOfBooks);
 
         List<Book> list = getFavouriteBooks();
-        /*The list should later on be populated with data from the api/favorite database
-            But for now standard books are enough
-        List<Book> list = new ArrayList<Book>();
-        for (int i = 0; i < 5; i++) {
-            list.add(StandardBook.getStandardBook());
-            list.get(i).setTitle(Integer.toString(i));
-        }
-         */
 
         books = new Book[list.size()];
         list.toArray(books);

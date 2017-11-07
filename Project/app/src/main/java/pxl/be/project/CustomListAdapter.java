@@ -12,7 +12,8 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
+
+import pxl.be.project.Model.Book;
 
 /**
  * Created by Pieter on 17/10/2017.
@@ -23,7 +24,7 @@ public class CustomListAdapter extends ArrayAdapter implements Filterable {
 
     private final Activity context;
     private final Book[] originalBookArray;
-    private Book[] filteredBookList;
+    private Book[] filteredBookArray;
     private final Integer[] imgId;//Image files
 
     public CustomListAdapter(Activity context, Book[] bookArray, Integer[] imgId) {
@@ -31,7 +32,7 @@ public class CustomListAdapter extends ArrayAdapter implements Filterable {
 
         this.context = context;
         this.originalBookArray = bookArray;
-        this.filteredBookList = bookArray;
+        this.filteredBookArray = bookArray;
         this.imgId = imgId;
     }
 
@@ -43,7 +44,7 @@ public class CustomListAdapter extends ArrayAdapter implements Filterable {
         TextView txtTitle = (TextView) rowView.findViewById(R.id.tv_bookTitle);
         ImageView imageView = (ImageView) rowView.findViewById(R.id.iv_bookIcon);
 
-        txtTitle.setText(filteredBookList[position].toString());
+        txtTitle.setText(filteredBookArray[position].toString());
         imageView.setImageResource(R.drawable.book1600);//TODO make the imageArray
 
         return rowView;
@@ -51,7 +52,7 @@ public class CustomListAdapter extends ArrayAdapter implements Filterable {
 
     //For this helper method, return based on filteredBookArray
     public int getCount() {
-        return filteredBookList.length;
+        return filteredBookArray.length;
     }
 
     @Override
@@ -82,7 +83,7 @@ public class CustomListAdapter extends ArrayAdapter implements Filterable {
             @Override
             protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
                 ArrayList<Book> resultList = (ArrayList<Book>) filterResults.values;
-                filteredBookList = resultList.toArray(new Book[resultList.size()]);
+                filteredBookArray = resultList.toArray(new Book[resultList.size()]);
                 notifyDataSetChanged();
             }
         };
