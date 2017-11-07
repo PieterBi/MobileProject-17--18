@@ -7,3 +7,5 @@
 /build
 /captures
 .externalNativeBuild
+
+!/build/intermediates/manifest/androidTest/debug/AndroidManifest.xml
