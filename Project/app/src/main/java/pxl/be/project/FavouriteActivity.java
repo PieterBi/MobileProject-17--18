@@ -74,4 +74,9 @@ public class FavouriteActivity extends AppCompatActivity implements MyListener{
         dbHelper.insertBook(sqlBook);
 
     }
+
+    public void searchBooksOnline()
+    {
+        new SearchTask(FavouriteActivity.this).execute();
+    }
 }
