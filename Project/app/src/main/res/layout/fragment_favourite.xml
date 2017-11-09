@@ -18,4 +18,15 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_below="@id/et_inputSearch"></ListView>
+
+    <Button
+        android:id="@+id/btn_search"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Search online"
+        android:layout_alignParentBottom="true"
+        android:adjustViewBounds="true"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        />
 </RelativeLayout>
