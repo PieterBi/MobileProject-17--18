@@ -1,4 +1,4 @@
-package pxl.be.project;
+package pxl.be.project.Activities;
 
 import android.app.FragmentManager;
 import android.content.Intent;
@@ -7,7 +7,15 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.ListView;
 
-public class FavouriteActivity extends AppCompatActivity implements MyListener{
+import pxl.be.project.Model.Book;
+import pxl.be.project.Fragments.FragmentDetail;
+import pxl.be.project.MyListener;
+import pxl.be.project.R;
+import pxl.be.project.DAL.ReadingBuddyDbHelper;
+import pxl.be.project.Model.StandardBook;
+import pxl.be.project.SearchTask;
+
+public class FavouriteActivity extends AppCompatActivity implements MyListener {
 
     private FragmentManager manager;
     private Book selectedBook;
@@ -24,6 +32,8 @@ public class FavouriteActivity extends AppCompatActivity implements MyListener{
 
         //use this function to add a dummy entry in the local sqlite db
         //testSaveBook();
+
+        //testRemoveBook();
     }
 
     @Override
@@ -79,4 +89,13 @@ public class FavouriteActivity extends AppCompatActivity implements MyListener{
     {
         new SearchTask(FavouriteActivity.this).execute();
     }
+
+    private void testRemoveBook()
+    {
+        ReadingBuddyDbHelper dbHelper = new ReadingBuddyDbHelper(getApplicationContext());
+
+        Book b = new Book(2, StandardBook.getStandardBook());
+        dbHelper.deleteBook(b);
+    }
+
 }

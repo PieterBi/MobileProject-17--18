@@ -1,8 +1,12 @@
-package pxl.be.project;
+package pxl.be.project.Activities;
 
 import android.app.FragmentManager;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+
+import pxl.be.project.Model.Book;
+import pxl.be.project.Fragments.FragmentDetail;
+import pxl.be.project.R;
 
 public class DetailActivity extends AppCompatActivity {
 

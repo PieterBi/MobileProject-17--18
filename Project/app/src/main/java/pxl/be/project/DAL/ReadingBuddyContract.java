@@ -1,4 +1,4 @@
-package pxl.be.project;
+package pxl.be.project.DAL;
 
 import android.provider.BaseColumns;
 

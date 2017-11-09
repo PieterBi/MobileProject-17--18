@@ -1,4 +1,4 @@
-package pxl.be.project;
+package pxl.be.project.Model;
 
 /**
  * Created by Pieter on 16/10/2017.

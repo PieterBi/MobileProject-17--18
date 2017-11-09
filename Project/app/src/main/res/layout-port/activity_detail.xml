@@ -6,7 +6,7 @@
 
     <fragment
         android:id="@+id/frag_container"
-        android:name="pxl.be.project.FragmentDetail"
+        android:name="pxl.be.project.Fragments.FragmentDetail"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginStart="5dp"/>
