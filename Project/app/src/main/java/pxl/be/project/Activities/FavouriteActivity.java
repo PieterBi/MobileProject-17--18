@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -26,6 +27,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
+import pxl.be.project.Fragments.FragmentList;
 import pxl.be.project.Model.Book;
 import pxl.be.project.Fragments.FragmentDetail;
 import pxl.be.project.MyListener;
@@ -34,8 +36,9 @@ import pxl.be.project.DAL.ReadingBuddyDbHelper;
 import pxl.be.project.Model.StandardBook;
 //import pxl.be.project.SearchTask;
 
-public class FavouriteActivity extends AppCompatActivity implements MyListener {
+public class FavouriteActivity extends BaseActivity implements MyListener {
 
+    private ListView listView;
     private FragmentManager manager;
     private Book selectedBook;
     private Boolean wideMode;
@@ -47,14 +50,13 @@ public class FavouriteActivity extends AppCompatActivity implements MyListener {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_favourite);
+        listView = (ListView) findViewById(R.id.lv_listOfBooks);
 
         manager = getFragmentManager();
         checkLayoutMode(getResources().getConfiguration());
 
-        //use this function to add a dummy entry in the local sqlite db
-        //testSaveBook();
-
-        //testRemoveBook();
+        if ((listView.getCount() > 0) && wideMode)
+            sendBook(0);
 
         searchButton = (Button) findViewById(R.id.btn_search);
         mJSONURLString = "http://isbndb.com/api/v2/json/VI15DHE7/books?q=";
@@ -138,9 +140,13 @@ public class FavouriteActivity extends AppCompatActivity implements MyListener {
     }
 
     @Override
-    public void sendBook(int position)
-    {
-        ListView listView = (ListView) findViewById(R.id.lv_listOfBooks);
+    protected void onResume(){
+        super.onResume();
+        update();
+    }
+
+    @Override
+    public void sendBook(int position) {
         selectedBook = (Book) listView.getItemAtPosition(position);
         sendDataToFragmentFavourite();
     }
@@ -155,8 +161,7 @@ public class FavouriteActivity extends AppCompatActivity implements MyListener {
         }
     }
 
-    private void sendDataToFragmentFavourite()
-    {
+    private void sendDataToFragmentFavourite() {
         if (wideMode) {
             //if phone is in landscape, use detail fragment to show data
             FragmentDetail fragmentDetail = (FragmentDetail) manager.findFragmentById(R.id.frag_detail);
@@ -175,8 +180,30 @@ public class FavouriteActivity extends AppCompatActivity implements MyListener {
 
         Book sqlBook = StandardBook.getStandardBook();
         sqlBook.setTitle("SQL Book");
-        dbHelper.insertBook(sqlBook);
+        dbHelper.insertBook(sqlBook, this);
 
+    }
+
+    private void testRemoveBook() {
+        ReadingBuddyDbHelper dbHelper = new ReadingBuddyDbHelper(getApplicationContext());
+
+        Book b = new Book(2, StandardBook.getStandardBook());
+        dbHelper.deleteBook(b, this);
+    }
+
+    @Override
+    public void update() {
+
+        Log.d("SQL", "getting favourite books");
+
+        if (wideMode) {
+            FragmentList fragmentList = (FragmentList) manager.findFragmentById(R.id.frag_list);
+            fragmentList.getFavouriteBooks();
+        }
+        else {
+            FragmentList fragmentList = (FragmentList) manager.findFragmentById(R.id.frag_container);
+            fragmentList.getFavouriteBooks();
+        }
     }
 
 //    public void searchBooksOnline()
@@ -185,13 +212,4 @@ public class FavouriteActivity extends AppCompatActivity implements MyListener {
 //
 //
 //    }
-
-    private void testRemoveBook()
-    {
-        ReadingBuddyDbHelper dbHelper = new ReadingBuddyDbHelper(getApplicationContext());
-
-        Book b = new Book(2, StandardBook.getStandardBook());
-        dbHelper.deleteBook(b);
-    }
-
 }

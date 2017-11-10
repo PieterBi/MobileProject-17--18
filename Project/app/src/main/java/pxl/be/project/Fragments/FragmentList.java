@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -46,10 +47,21 @@ public class FragmentList extends Fragment {
         inputSearch.addTextChangedListener(searchWatcher);
         listView = view.findViewById(R.id.lv_listOfBooks);
 
-        List<Book> list = getFavouriteBooks();
+        getFavouriteBooks();
+
+        return view;
+    }
+
+    public void getFavouriteBooks(){
+
+        ReadingBuddyDbHelper dbHelper = new ReadingBuddyDbHelper(getActivity().getApplicationContext());
+
+
+        List<Book> list = dbHelper.getAllBooks();
 
         books = new Book[list.size()];
         list.toArray(books);
+
         Integer[] imgId = null;
 
         adapter = new CustomListAdapter(getActivity(), books, imgId);
@@ -64,13 +76,6 @@ public class FragmentList extends Fragment {
             }
         });
 
-        return view;
-    }
-
-    private ArrayList<Book> getFavouriteBooks(){
-        ReadingBuddyDbHelper dbHelper = new ReadingBuddyDbHelper(getActivity().getApplicationContext());
-
-        return dbHelper.getAllBooks();
     }
 
     private void sendPosition(int position) {
@@ -78,7 +83,8 @@ public class FragmentList extends Fragment {
         myListener.sendBook(position);
     }
 
-    private void searchFavouriteBooks(String s) {adapter.getFilter().filter(s);
+    private void searchFavouriteBooks(String s) {
+        adapter.getFilter().filter(s);
     }
 
     TextWatcher searchWatcher = new TextWatcher() {

@@ -1,5 +1,6 @@
 package pxl.be.project.DAL;
 
+import android.app.Activity;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -10,6 +11,7 @@ import android.util.Log;
 
 import java.util.ArrayList;
 
+import pxl.be.project.Activities.BaseActivity;
 import pxl.be.project.Model.Book;
 
 import static pxl.be.project.DAL.ReadingBuddyContract.*;
@@ -48,15 +50,17 @@ public class ReadingBuddyDbHelper extends SQLiteOpenHelper {
         onCreate(sqLiteDatabase);
     }
 
-    public void insertBook(Book b) {
-        new InsertTask().execute(b);
+    public void insertBook(Book b, Activity a) {
+        Params params = new Params(b, a);
+        new InsertTask().execute(params);
         Log.d("SQL", "starting task");
     }
 
-    public void deleteBook(Book b)
+    public void deleteBook(Book b, Activity a)
     {
         Log.d("SQL", "Executing remove task");
-        new RemoveTask().execute(b);
+        Params params = new Params(b, a);
+        new RemoveTask().execute(params);
     }
 
     public ArrayList<Book> getAllBooks() {
@@ -89,54 +93,85 @@ public class ReadingBuddyDbHelper extends SQLiteOpenHelper {
         return bookList;
     }
 
-    private class InsertTask extends AsyncTask<Book, Void, Long> {
+    private class InsertTask extends AsyncTask<Params, Void, Params> {
 
         @Override
-        protected Long doInBackground(Book... books) {
+        protected Params doInBackground(Params... params) {
             // Gets the data repository in write mode
             SQLiteDatabase db = getWritableDatabase();
 
+            // Get the book from Params
+            Book book = params[0].getBook();
+
             // Create a new map of values, where column names are the keys
             ContentValues values = new ContentValues();
-            values.put(ReadingBuddy.COLUMN_NAME_TITLE, books[0].getTitle());
-            values.put(ReadingBuddy.COLUMN_NAME_AUTHOR, books[0].getAuthor());
-            values.put(ReadingBuddy.COLUMN_NAME_DESCRIPTION, books[0].getDescription());
-            values.put(ReadingBuddy.COLUMN_NAME_RELEASEDATE, books[0].getReleaseDate());
-            values.put(ReadingBuddy.COLUMN_NAME_PUBLISHER, books[0].getPublisher());
-            values.put(ReadingBuddy.COLUMN_NAME_ISBN10, books[0].getISBN10());
-            values.put(ReadingBuddy.COLUMN_NAME_ISBN13, books[0].getISBN13());
-            values.put(ReadingBuddy.COLUMN_NAME_SUMMARY, books[0].getSummary());
+            values.put(ReadingBuddy.COLUMN_NAME_TITLE, book.getTitle());
+            values.put(ReadingBuddy.COLUMN_NAME_AUTHOR, book.getAuthor());
+            values.put(ReadingBuddy.COLUMN_NAME_DESCRIPTION, book.getDescription());
+            values.put(ReadingBuddy.COLUMN_NAME_RELEASEDATE, book.getReleaseDate());
+            values.put(ReadingBuddy.COLUMN_NAME_PUBLISHER, book.getPublisher());
+            values.put(ReadingBuddy.COLUMN_NAME_ISBN10, book.getISBN10());
+            values.put(ReadingBuddy.COLUMN_NAME_ISBN13, book.getISBN13());
+            values.put(ReadingBuddy.COLUMN_NAME_SUMMARY, book.getSummary());
 
 
             Log.d("SQL", "inserting new row");
             // Insert the new row, returning the primary key value of the new row
             long newRowId = db.insert(ReadingBuddy.TABLE_NAME, null, values);
+            Log.d("SQL", "new row id" + newRowId);
 
-            return newRowId;
+            return params[0];
         }
 
         @Override
-        protected void onPostExecute(Long aLong) {
-            Log.d("SQL", "new row id: " + Long.toString(aLong));
+        protected void onPostExecute(Params aParams) {
+
+            ((BaseActivity)aParams.getActivity()).update();
         }
     }
 
-    private class RemoveTask extends AsyncTask<Book, Void, Void> {
+    private class RemoveTask extends AsyncTask<Params, Void, Activity> {
 
         @Override
-        protected Void doInBackground(Book... books) {
+        protected Activity doInBackground(Params... params) {
             // Gets the data repository in write mode
             SQLiteDatabase db = getWritableDatabase();
+
+            // Get the book from Params
+            Book book = params[0].getBook();
 
             // Define 'where' part of query.
             String selection = ReadingBuddy._ID + " LIKE ?";
             // Specify arguments in placeholder order.
-            String[] selectionArgs = { Integer.toString(books[0].getId()) };
+            String[] selectionArgs = { Integer.toString(book.getId()) };
             // Issue SQL statement.
             db.delete(ReadingBuddy.TABLE_NAME, selection, selectionArgs);
             Log.d("SQL", "deleting ... ");
 
-            return null;
+            return params[0].getActivity();
+        }
+
+        @Override
+        protected void onPostExecute(Activity aActivity) {
+            ((BaseActivity)aActivity).update();
+        }
+    }
+
+    private class Params {
+        private Book _book;
+        private Activity _activity;
+
+        public Params(Book b, Activity a) {
+            _book = b;
+            _activity = a;
+        }
+
+        public Book getBook() {
+            return _book;
+        }
+
+        public Activity getActivity() {
+            return _activity;
         }
     }
 }
